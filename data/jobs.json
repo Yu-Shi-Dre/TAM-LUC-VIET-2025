@@ -1,0 +1,18 @@
+[
+  {
+    "company": "Công ty ABC",
+    "position": "Nhân viên bán hàng",
+    "location": "Bắc Ninh",
+    "type": "Toàn thời gian",
+    "salary": "Theo tháng",
+    "status": "Đang tuyển"
+  },
+  {
+    "company": "Công ty XYZ",
+    "position": "Kỹ sư điện",
+    "location": "Hà Nội",
+    "type": "Thời vụ",
+    "salary": "Theo ngày",
+    "status": "Ngưng tuyển"
+  }
+]
