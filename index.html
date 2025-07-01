@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quản lý tuyển dụng</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>Quản lý bài đăng tuyển dụng</h1>
+    <div class="upload-form">
+      <h2>Thêm bài đăng tuyển dụng</h2>
+      <input type="text" id="company" placeholder="Tên công ty" />
+      <input type="text" id="position" placeholder="Vị trí tuyển dụng" />
+      <input type="text" id="location" placeholder="Khu vực" />
+      <input type="text" id="type" placeholder="Loại việc (Toàn thời gian...)" />
+      <input type="text" id="salary" placeholder="Lương (Theo ngày/tháng...)" />
+      <button onclick="addJob()">Tải bài đăng</button>
+    </div>
+
+    <div class="filters">
+      <select id="filter-location"><option value="">-- Khu vực --</option></select>
+      <select id="filter-type"><option value="">-- Loại việc --</option></select>
+      <select id="filter-salary"><option value="">-- Lương --</option></select>
+      <select id="filter-status"><option value="">-- Trạng thái --</option></select>
+    </div>
+
+    <div id="job-list"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
