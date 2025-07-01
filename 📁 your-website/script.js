@@ -9,7 +9,8 @@ let jobs = [];
 
 async function fetchJobs() {
   try {
-    const res = await fetch("http://localhost:5000/api/jobs");
+    const res = await fetch("https://tam-luc-viet-2025.onrender.com/api/jobs");
+
     jobs = await res.json();
     renderFilters();
     renderJobs(jobs);
