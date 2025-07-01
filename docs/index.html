@@ -1,0 +1,43 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thông tin tuyển dụng</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>🌟 Tuyển dụng nội bộ</h1>
+    <div id="filters">
+      <select id="locationFilter">
+        <option value="">-- Khu vực --</option>
+      </select>
+
+      <select id="typeFilter">
+        <option value="">-- Loại việc --</option>
+        <option value="Chính thức">Chính thức</option>
+        <option value="Thời vụ">Thời vụ</option>
+      </select>
+
+      <select id="salaryFilter">
+        <option value="">-- Hình thức lương --</option>
+        <option value="Theo ngày">Theo ngày</option>
+        <option value="Theo tháng">Theo tháng</option>
+        <option value="Theo tuần">Theo tuần</option>
+      </select>
+    </div>
+  </header>
+
+  <main id="job-listings">
+    <p>⏳ Đang tải dữ liệu...</p>
+  </main>
+
+  <footer>
+    <p>© 2025 - Nội Bộ Tuyển Dụng</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
