@@ -1,20 +1,22 @@
 [
   {
     "company": "Công ty ABC",
-    "position": "Nhân viên bán hàng",
-    "location": "Bắc Ninh",
+    "position": "Nhân viên kinh doanh",
+    "location": "Hà Nội",
     "type": "Toàn thời gian",
     "salary": "Theo tháng",
     "status": "Đang tuyển",
-    "description": "Bán hàng tại cửa hàng 8h-17h. Lương cơ bản + hoa hồng. Yêu cầu có kinh nghiệm."
+    "description": "Tìm kiếm và chăm sóc khách hàng doanh nghiệp.",
+    "image": "https://i.imgur.com/ZQZQZQZ.png"
   },
   {
     "company": "Công ty XYZ",
-    "position": "Kỹ sư điện",
-    "location": "Hà Nội",
-    "type": "Thời vụ",
-    "salary": "Theo ngày",
+    "position": "Lập trình viên Frontend",
+    "location": "TP. HCM",
+    "type": "Bán thời gian",
+    "salary": "Theo giờ",
     "status": "Ngưng tuyển",
-    "description": "Công việc lắp đặt hệ thống điện trong vòng 3 tháng. Có hỗ trợ ăn ở."
+    "description": "Thiết kế giao diện người dùng sử dụng HTML/CSS/JS.",
+    "image": "https://i.imgur.com/NwltK1N.png"
   }
 ]
