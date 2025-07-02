@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tạo file JSON Tuyển Dụng</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f7f7f7; }
+    h1 { color: #333; }
+    label { display: block; margin-top: 10px; }
+    input, select, button, textarea {
+      width: 100%; padding: 8px; margin-top: 5px;
+    }
+    textarea { height: 200px; }
+    .job-block { border: 1px solid #ccc; padding: 10px; margin-bottom: 15px; background: #fff; }
+    button { background: #3498db; color: white; border: none; cursor: pointer; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Trình tạo file JSON Tuyển dụng</h1>
+
+  <div id="job-form">
+    <div class="job-block">
+      <label>Tên công ty:</label>
+      <input type="text" class="company" placeholder="VD: Công ty ABC">
+
+      <label>Vị trí tuyển dụng:</label>
+      <input type="text" class="position" placeholder="VD: Nhân viên kinh doanh">
+
+      <label>Khu vực:</label>
+      <input type="text" class="location" placeholder="VD: Hà Nội">
+
+      <label>Loại việc:</label>
+      <input type="text" class="type" placeholder="VD: Toàn thời gian">
+
+      <label>Lương:</label>
+      <input type="text" class="salary" placeholder="VD: Theo tháng">
+
+      <label>Trạng thái:</label>
+      <select class="status">
+        <option value="Đang tuyển">Đang tuyển</option>
+        <option value="Ngưng tuyển">Ngưng tuyển</option>
+      </select>
+    </div>
+  </div>
+
+  <button onclick="addJobBlock()">➕ Thêm bài đăng</button>
+  <button onclick="generateJSON()">📄 Tạo file JSON</button>
+
+  <h2>Kết quả JSON</h2>
+  <textarea id="output" readonly></textarea>
+
+  <script>
+    function addJobBlock() {
+      const block = document.querySelector('.job-block').cloneNode(true);
+      block.querySelectorAll('input').forEach(i => i.value = '');
+      block.querySelector('.status').value = 'Đang tuyển';
+      document.getElementById('job-form').appendChild(block);
+    }
+
+    function generateJSON() {
+      const companies = document.querySelectorAll('.company');
+      const positions = document.querySelectorAll('.position');
+      const locations = document.querySelectorAll('.location');
+      const types = document.querySelectorAll('.type');
+      const salaries = document.querySelectorAll('.salary');
+      const statuses = document.querySelectorAll('.status');
+
+      let jobs = [];
+      for (let i = 0; i < companies.length; i++) {
+        jobs.push({
+          company: companies[i].value.trim(),
+          position: positions[i].value.trim(),
+          location: locations[i].value.trim(),
+          type: types[i].value.trim(),
+          salary: salaries[i].value.trim(),
+          status: statuses[i].value.trim()
+        });
+      }
+
+      document.getElementById('output').value = JSON.stringify(jobs, null, 2);
+    }
+  </script>
+</body>
+</html>
