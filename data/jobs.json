@@ -1,25 +1,5 @@
 [
   {
-    "company": "Công ty ABC",
-    "position": "Nhân viên kinh doanh",
-    "location": "Hà Nội",
-    "type": "Toàn thời gian",
-    "salary": "Theo tháng",
-    "status": "Đang tuyển",
-    "description": "Tìm kiếm và chăm sóc khách hàng doanh nghiệp.",
-    "image": "https://i.imgur.com/ZQZQZQZ.png"
-  },
-  {
-    "company": "Công ty XYZ",
-    "position": "Lập trình viên Frontend",
-    "location": "TP. HCM",
-    "type": "Bán thời gian",
-    "salary": "Theo giờ",
-    "status": "Ngưng tuyển",
-    "description": "Thiết kế giao diện người dùng sử dụng HTML/CSS/JS.",
-    "image": "https://i.imgur.com/NwltK1N.png"
-  },
-  {
     "company": "DREAMTECH",
     "position": "SẢN XUẤT",
     "location": "KCN VSIP - BẮC NINH",
