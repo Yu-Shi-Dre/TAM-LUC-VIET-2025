@@ -6,7 +6,7 @@
     "type": "Toàn thời gian",
     "salary": "Theo tháng",
     "status": "Đang tuyển",
-    "description": "Bán hàng tại cửa hàng, thời gian làm việc từ 8h đến 17h. Ưu tiên người có kinh nghiệm."
+    "description": "Bán hàng tại cửa hàng 8h-17h. Lương cơ bản + hoa hồng. Yêu cầu có kinh nghiệm."
   },
   {
     "company": "Công ty XYZ",
@@ -15,6 +15,6 @@
     "type": "Thời vụ",
     "salary": "Theo ngày",
     "status": "Ngưng tuyển",
-    "description": "Bán hàng tại cửa hàng, thời gian làm việc từ 8h đến 17h. Ưu tiên người có kinh nghiệm."
+    "description": "Công việc lắp đặt hệ thống điện trong vòng 3 tháng. Có hỗ trợ ăn ở."
   }
 ]
