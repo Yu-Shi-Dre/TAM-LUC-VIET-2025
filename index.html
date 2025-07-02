@@ -40,6 +40,7 @@
           <input type="text" id="image" placeholder="Link hình ảnh khung lương (tuỳ chọn)" />
           <textarea id="description" placeholder="Nội dung chi tiết bài đăng"></textarea>
           <button onclick="addJob()">Tải bài đăng</button>
+          <button onclick="downloadJobsJSON()">Tải file jobs.json</button>
         </div>
       </div>
 
@@ -57,8 +58,9 @@
 
   <script>
     const validCodes = {
-      "4054220365": "admin",
-      "0866429918": "viewer"
+      "0123456789": "admin",
+      "1234567890": "viewer",
+      "9876543210": "admin"
     };
 
     let userRole = "";
@@ -181,6 +183,18 @@
       displayJobs(jobs);
       document.querySelectorAll('.upload-form input, .upload-form textarea')
         .forEach(el => el.value = '');
+    }
+
+    function downloadJobsJSON() {
+      if (userRole !== 'admin') return;
+      const jsonStr = JSON.stringify(jobs, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'jobs.json';
+      a.click();
+      URL.revokeObjectURL(url);
     }
   </script>
 </body>
