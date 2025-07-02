@@ -3,14 +3,7 @@ body {
   background: #f4f4f4;
   margin: 0; padding: 20px;
 }
-img.salary-image {
-  max-width: 100%;
-  height: auto;
-  border: 1px solid #ccc;
-  margin-top: 10px;
-  display: block;
-  object-fit: contain;
-}
+
 
 .container {
   max-width: 900px;
