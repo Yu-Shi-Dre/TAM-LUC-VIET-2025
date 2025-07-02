@@ -158,7 +158,8 @@
           <p><strong>Loại việc:</strong> ${job.type}</p>
           <p><strong>Lương:</strong> ${job.salary}</p>
           <p><strong>Trạng thái:</strong> <span>${job.status}</span></p>
-          <p><strong>Mô tả:</strong> ${job.description.replaceAll('\\n', '<br>').replaceAll('\n', '<br>').replaceAll('\r\n', '<br>')}</p>
+          <p><strong>Mô tả:</strong> ${job.description}</p>
+
           ${job.image ? `<a class="image-download-link" href="${job.image}" download target="_blank">⬇ Tải hình ảnh khung lương</a>` : ''}
         `;
         list.appendChild(div);
