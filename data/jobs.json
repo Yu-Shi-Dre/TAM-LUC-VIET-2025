@@ -5,7 +5,8 @@
     "location": "Bắc Ninh",
     "type": "Toàn thời gian",
     "salary": "Theo tháng",
-    "status": "Đang tuyển"
+    "status": "Đang tuyển",
+    "description": "Bán hàng tại cửa hàng, thời gian làm việc từ 8h đến 17h. Ưu tiên người có kinh nghiệm."
   },
   {
     "company": "Công ty XYZ",
@@ -13,6 +14,7 @@
     "location": "Hà Nội",
     "type": "Thời vụ",
     "salary": "Theo ngày",
-    "status": "Ngưng tuyển"
+    "status": "Ngưng tuyển",
+    "description": "Bán hàng tại cửa hàng, thời gian làm việc từ 8h đến 17h. Ưu tiên người có kinh nghiệm."
   }
 ]
