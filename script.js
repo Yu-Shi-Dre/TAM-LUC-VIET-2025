@@ -80,7 +80,8 @@ function displayJobs(jobs) {
       <p><strong>Loại việc:</strong> ${job.type}</p>
       <p><strong>Lương:</strong> ${job.salary}</p>
       <p><strong>Trạng thái:</strong> <span id="status-${index}">${job.status}</span></p>
-      <p><strong>Mô tả:</strong> ${job.description || ""}</p>
+      <p><strong>Mô tả:</strong> ${job.description.replace(/\\n/g, '<br>')}</p>
+
       <button class="status-toggle" onclick="toggleStatus(${index})">Chuyển trạng thái</button>
     `;
     jobList.appendChild(div);
