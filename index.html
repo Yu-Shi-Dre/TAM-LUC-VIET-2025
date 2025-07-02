@@ -6,7 +6,6 @@
   <title>Quản lý tuyển dụng - Đăng nhập</title>
   <link rel="stylesheet" href="style.css"/>
   <style>
-   
     .image-download-link {
       display: inline-block;
       margin-top: 5px;
@@ -159,8 +158,8 @@
           <p><strong>Loại việc:</strong> ${job.type}</p>
           <p><strong>Lương:</strong> ${job.salary}</p>
           <p><strong>Trạng thái:</strong> <span>${job.status}</span></p>
-          <p><strong>Mô tả:</strong> ${job.description}</p>
-          ${job.image ? `<img class="salary-image" src="${job.image}" alt="Khung lương"><a class="image-download-link" href="${job.image}" download target="_blank">⬇ Tải hình ảnh khung lương</a>` : ''}
+          <p><strong>Mô tả:</strong> ${job.description.replace(/\n/g, '<br>')}</p>
+          ${job.image ? `<a class="image-download-link" href="${job.image}" download target="_blank">⬇ Tải hình ảnh khung lương</a>` : ''}
         `;
         list.appendChild(div);
       });
