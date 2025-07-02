@@ -7,10 +7,16 @@
   <link rel="stylesheet" href="style.css"/>
   <style>
     img.salary-image {
-      max-width: 100%;
+      width: 100%;
       height: auto;
       margin-top: 10px;
-      border: 1px solid #ddd;
+      border: 2px solid #444;
+      display: block;
+    }
+    .image-download-link {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 0.9em;
     }
   </style>
 </head>
@@ -58,8 +64,9 @@
 
   <script>
     const validCodes = {
-      "4054220365": "admin",
-      "0866429918": "viewer"
+      "0123456789": "admin",
+      "1234567890": "viewer",
+      "9876543210": "admin"
     };
 
     let userRole = "";
@@ -160,7 +167,7 @@
           <p><strong>Lương:</strong> ${job.salary}</p>
           <p><strong>Trạng thái:</strong> <span>${job.status}</span></p>
           <p><strong>Mô tả:</strong> ${job.description}</p>
-          ${job.image ? `<img class="salary-image" src="${job.image}" alt="Khung lương">` : ''}
+          ${job.image ? `<img class="salary-image" src="${job.image}" alt="Khung lương"><a class="image-download-link" href="${job.image}" download target="_blank">⬇ Tải hình ảnh khung lương</a>` : ''}
         `;
         list.appendChild(div);
       });
