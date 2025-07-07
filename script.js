@@ -34,14 +34,21 @@ function populateFilters() {
 }
 
 
-function populateSelect(select, items) {
+function populateSelect(id, items) {
+  const select = document.getElementById(id);
+  const seen = new Set();
   items.forEach(item => {
-    const option = document.createElement('option');
-    option.value = item;
-    option.textContent = item;
-    select.appendChild(option);
+    const normalized = item.trim().toLowerCase();
+    if (!seen.has(normalized)) {
+      seen.add(normalized);
+      const option = document.createElement('option');
+      option.value = normalized;
+      option.textContent = item.charAt(0).toUpperCase() + item.slice(1);
+      select.appendChild(option);
+    }
   });
 }
+
 
 function applyFilters() {
   const keyword = searchInput.value.toLowerCase();
