@@ -18,26 +18,21 @@ fetch('data/jobs.json')
   });
 
 function populateFilters() {
-  const locSet = new Set();
-  const typeSet = new Set();
-  const salarySet = new Set();
-  const statusSet = new Set();
-
+  const locSet = new Set(), typeSet = new Set(), salarySet = new Set(), statusSet = new Set();
   jobs.forEach(job => {
-    locSet.add(job.location);
-    typeSet.add(job.type);
-    salarySet.add(job.salary);
-    statusSet.add(job.status);
+    if (job.location) locSet.add(job.location.trim().toLowerCase());
+    if (job.type) typeSet.add(job.type.trim().toLowerCase());
+    if (job.salary) salarySet.add(job.salary.trim().toLowerCase());
+    if (job.status) statusSet.add(job.status.trim().toLowerCase());
   });
-
-  populateSelect(filters.location, locSet);
-  populateSelect(filters.type, typeSet);
-  populateSelect(filters.salary, salarySet);
-  populateSelect(filters.status, statusSet);
-
-  Object.values(filters).forEach(filter => filter.addEventListener('change', applyFilters));
-  searchInput.addEventListener('input', applyFilters);
+  populateSelect('filter-location', [...locSet]);
+  populateSelect('filter-type', [...typeSet]);
+  populateSelect('filter-salary', [...salarySet]);
+  populateSelect('filter-status', [...statusSet]);
+  ['filter-location','filter-type','filter-salary','filter-status']
+    .forEach(id => document.getElementById(id).addEventListener('change', applyFilters));
 }
+
 
 function populateSelect(select, items) {
   items.forEach(item => {
