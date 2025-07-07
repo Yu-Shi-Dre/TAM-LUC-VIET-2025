@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quản lý tuyển dụng - Đăng nhập</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .image-download-link {
+      display: inline-block;
+      margin-top: 5px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="login-section">
+      <h1>Đăng nhập bằng mã truy cập</h1>
+      <input type="text" id="access-code" placeholder="Nhập mã 10 số..." maxlength="10"/>
+      <button onclick="login()">Đăng nhập</button>
+      <p id="login-error" class="error-message"></p>
+    </div>
+
+    <div id="main-app" style="display:none;">
+      <div class="header">
+        <h1>Quản lý bài đăng tuyển dụng</h1>
+        <button onclick="logout()">Đăng xuất</button>
+      </div>
+
+      <div id="upload-wrapper" style="display:none;">
+        <div class="upload-form">
+          <h2>Thêm bài đăng tuyển dụng</h2>
+          <input type="text" id="company" placeholder="Tên công ty" />
+          <input type="text" id="position" placeholder="Vị trí tuyển dụng" />
+          <input type="text" id="location" placeholder="Khu vực" />
+          <input type="text" id="type" placeholder="Loại việc (Toàn thời gian...)" />
+          <input type="text" id="salary" placeholder="Lương (Theo ngày/tháng...)" />
+          <input type="text" id="image" placeholder="Link hình ảnh khung lương (tuỳ chọn)" />
+          <textarea id="description" placeholder="Nội dung chi tiết bài đăng"></textarea>
+          <button onclick="addJob()">Tải bài đăng</button>
+          <button onclick="downloadJobsJSON()">Tải file jobs.json</button>
+        </div>
+      </div>
+
+      <div class="filters">
+        <input type="text" id="search-input" placeholder="🔍 Tìm kiếm từ khóa..." />
+        <select id="filter-company"><option value="">-- Công ty --</option></select>
+        <select id="filter-location"><option value="">-- Khu vực --</option></select>
+        <select id="filter-type"><option value="">-- Loại việc --</option></select>
+        <select id="filter-salary"><option value="">-- Lương --</option></select>
+        <select id="filter-status"><option value="">-- Trạng thái --</option></select>
+      </div>
+
+      <div id="job-list"></div>
+    </div>
+  </div>
+
+  <script>
+    const validCodes = {
+      "0123456789": "admin",
+      "1234567890": "viewer",
+      "9876543210": "admin"
+    };
+
+    let userRole = "";
+    let jobs = [];
+
+    function login() {
+      const code = document.getElementById('access-code').value.trim();
+      const error = document.getElementById('login-error');
+      if (validCodes[code]) {
+        userRole = validCodes[code];
+        document.getElementById('login-section').style.display = 'none';
+        document.getElementById('main-app').style.display = 'block';
+        document.getElementById('upload-wrapper').style.display = userRole === 'admin' ? 'block' : 'none';
+        error.textContent = '';
+        initializeApp();
+      } else {
+        error.textContent = 'Mã không hợp lệ. Vui lòng thử lại.';
+      }
+    }
+
+    function logout() {
+      userRole = "";
+      document.getElementById('access-code').value = '';
+      document.getElementById('main-app').style.display = 'none';
+      document.getElementById('login-section').style.display = 'block';
+      document.getElementById('job-list').innerHTML = '';
+    }
+
+    function initializeApp() {
+      fetch('data/jobs.json')
+        .then(res => res.json())
+        .then(data => {
+          jobs = data;
+          populateFilters();
+          displayJobs(jobs);
+        });
+
+      document.getElementById('search-input').addEventListener('input', applyFilters);
+    }
+
+    function populateFilters() {
+      const companySet = new Set(), locSet = new Set(), typeSet = new Set(), salarySet = new Set(), statusSet = new Set();
+      jobs.forEach(job => {
+        if (job.company) companySet.add(job.company.trim().toLowerCase());
+        if (job.location) locSet.add(job.location.trim().toLowerCase());
+        if (job.type) typeSet.add(job.type.trim().toLowerCase());
+        if (job.salary) salarySet.add(job.salary.trim().toLowerCase());
+        if (job.status) statusSet.add(job.status.trim().toLowerCase());
+      });
+      populateSelect('filter-company', [...companySet]);
+      populateSelect('filter-location', [...locSet]);
+      populateSelect('filter-type', [...typeSet]);
+      populateSelect('filter-salary', [...salarySet]);
+      populateSelect('filter-status', [...statusSet]);
+      ['filter-company','filter-location','filter-type','filter-salary','filter-status']
+        .forEach(id => document.getElementById(id).addEventListener('change', applyFilters));
+    }
+
+    function populateSelect(id, items) {
+      const select = document.getElementById(id);
+      const seen = new Set();
+      items.forEach(item => {
+        const normalized = item.trim().toLowerCase();
+        if (!seen.has(normalized)) {
+          seen.add(normalized);
+          const option = document.createElement('option');
+          option.value = normalized;
+          option.textContent = item.charAt(0).toUpperCase() + item.slice(1);
+          select.appendChild(option);
+        }
+      });
+    }
+
+    function applyFilters() {
+      const keyword = document.getElementById('search-input').value.toLowerCase();
+      const company = document.getElementById('filter-company').value;
+      const loc = document.getElementById('filter-location').value;
+      const type = document.getElementById('filter-type').value;
+      const salary = document.getElementById('filter-salary').value;
+      const status = document.getElementById('filter-status').value;
+
+      const filtered = jobs.filter(job => {
+        const matchKeyword = !keyword ||
+          job.company.toLowerCase().includes(keyword) ||
+          job.position.toLowerCase().includes(keyword) ||
+          job.description.toLowerCase().includes(keyword);
+
+        return matchKeyword &&
+          (!company || job.company.trim().toLowerCase() === company) &&
+          (!loc || job.location.trim().toLowerCase() === loc) &&
+          (!type || job.type.trim().toLowerCase() === type) &&
+          (!salary || job.salary.trim().toLowerCase() === salary) &&
+          (!status || job.status.trim().toLowerCase() === status);
+      });
+
+      displayJobs(filtered);
+    }
+
+    function displayJobs(jobs) {
+      const list = document.getElementById('job-list');
+      list.innerHTML = '';
+      if (!jobs.length) return list.innerHTML = '<p>Không có bài đăng phù hợp.</p>';
+      jobs.forEach((job, index) => {
+        const div = document.createElement('div');
+        div.className = 'job-card' + (job.status === 'Ngưng tuyển' ? ' closed' : '');
+        div.innerHTML = `
+          <h3>${job.position} - ${job.company}</h3>
+          <p><strong>Khu vực:</strong> ${job.location}</p>
+          <p><strong>Loại việc:</strong> ${job.type}</p>
+          <p><strong>Lương:</strong> ${job.salary}</p>
+          <p><strong>Trạng thái:</strong> <span>${job.status}</span></p>
+          <p><strong>Mô tả:</strong> ${job.description.replaceAll('\\n', '<br>').replaceAll('\n', '<br>').replaceAll('\r\n', '<br>')}</p>
+          ${job.image ? `<a class="image-download-link" href="${job.image}" download target="_blank">⬇ Tải hình ảnh khung lương</a>` : ''}
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    function addJob() {
+      if (userRole !== 'admin') return;
+      const job = {
+        company: document.getElementById('company').value,
+        position: document.getElementById('position').value,
+        location: document.getElementById('location').value,
+        type: document.getElementById('type').value,
+        salary: document.getElementById('salary').value,
+        image: document.getElementById('image').value,
+        description: document.getElementById('description').value,
+        status: 'Đang tuyển'
+      };
+      jobs.push(job);
+      displayJobs(jobs);
+      document.querySelectorAll('.upload-form input, .upload-form textarea').forEach(el => el.value = '');
+    }
+
+    function downloadJobsJSON() {
+      if (userRole !== 'admin') return;
+      const jsonStr = JSON.stringify(jobs, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'jobs.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
